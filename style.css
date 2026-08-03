@@ -1,0 +1,169 @@
+function abrirSite(){
+
+document.querySelector(".hero").style.display="none";
+
+document.getElementById("conteudo").style.display="block";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+const inicio=new Date("2024-06-08T00:00:00");
+
+function atualizarContador(){
+
+const agora=new Date();
+
+const diff=agora-inicio;
+
+const dias=Math.floor(diff/(1000*60*60*24));
+
+const horas=Math.floor((diff/(1000*60*60))%24);
+
+const minutos=Math.floor((diff/(1000*60))%60);
+
+const segundos=Math.floor((diff/1000)%60);
+
+document.getElementById("timer").innerHTML=`
+
+<div>
+
+<span>${dias}</span>
+
+Dias
+
+</div>
+
+<div>
+
+<span>${horas}</span>
+
+Horas
+
+</div>
+
+<div>
+
+<span>${minutos}</span>
+
+Minutos
+
+</div>
+
+<div>
+
+<span>${segundos}</span>
+
+Segundos
+
+</div>
+
+`;
+
+}
+
+setInterval(atualizarContador,1000);
+
+atualizarContador();
+
+function criarCoracao(){
+
+const c=document.createElement("div");
+
+c.innerHTML="❤️";
+
+c.className="floatingHeart";
+c.style.left=Math.random()*100+"vw";
+
+c.style.fontSize=(Math.random()*20+20)+"px";
+
+document.body.appendChild(c);
+
+setTimeout(()=>{
+
+c.remove();
+
+},6000);
+
+}
+
+setInterval(criarCoracao,900);
+
+const fotos=document.querySelectorAll(".grid img");
+
+fotos.forEach(foto=>{
+
+foto.addEventListener("click",()=>{
+
+const overlay=document.createElement("div");
+
+overlay.style.position="fixed";
+overlay.style.top="0";
+overlay.style.left="0";
+overlay.style.width="100%";
+overlay.style.height="100%";
+overlay.style.background="rgba(0,0,0,.92)";
+overlay.style.display="flex";
+overlay.style.justifyContent="center";
+overlay.style.alignItems="center";
+overlay.style.zIndex="9999";
+
+const img=document.createElement("img");
+
+img.src=foto.src;
+
+img.style.maxWidth="92%";
+img.style.maxHeight="92%";
+img.style.borderRadius="20px";
+
+overlay.appendChild(img);
+
+overlay.onclick=()=>overlay.remove();
+
+document.body.appendChild(overlay);
+
+});
+
+});
+.floatingHeart{
+
+position:fixed;
+
+top:-50px;
+
+pointer-events:none;
+
+z-index:9999;
+
+animation:cair 6s linear forwards;
+
+}
+
+@keyframes cair{
+
+0%{
+
+transform:translateY(-50px);
+
+opacity:0;
+
+}
+
+10%{
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translateY(110vh);
+
+opacity:0;
+
+}
+
+}
